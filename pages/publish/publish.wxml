@@ -1,0 +1,71 @@
+<scroll-view scroll-y class="scrollPage">
+<cu-custom bgColor="bg-gradual-blue">
+    <view slot="backText">返回</view>
+    <view slot="content">发布</view>
+</cu-custom>
+  <!-- <image src='/images/componentBg.png' mode='widthFix' style='width:100%;height:486rpx' class='response'></image> -->
+  <!-- <view class='publish-top bg-gradual-blue'>
+  </view> -->
+  <view class='nav-list'>
+    <view class="cu-card case">
+      <form>
+        <view class="cu-form-group margin-top">
+          <view class="title">邮件</view>
+          <input placeholder="两字短标题"></input>
+        </view>
+        <view class="cu-form-group">
+          <view class="title">输入框</view>
+          <input placeholder="三字标题"></input>
+        </view>
+        <view class="cu-form-group">
+          <view class="title">收货地址</view>
+          <input placeholder="统一标题的宽度"></input>
+        </view>
+        <view class="cu-form-group">
+          <view class="title">收货地址</view>
+          <input placeholder="输入框带个图标"></input>
+          <text class="cuIcon-locationfill text-orange"></text>
+        </view>
+        <view class="cu-form-group">
+          <view class="title">验证码</view>
+          <input placeholder="输入框带个按钮"></input>
+          <button class="cu-btn bg-green shadow">验证码</button>
+        </view>
+        <view class="cu-form-group">
+          <view class="title">手机号码</view>
+          <input placeholder="输入框带标签"></input>
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-blue">
+              +86
+            </view>
+            <view class="cu-tag line-blue">
+              中国大陆
+            </view>
+          </view>
+        </view>
+        <view class="cu-bar bg-white margin-top">
+          <view class="action">
+            图片上传
+          </view>
+          <view class="action">
+            {{imgList.length}}/4
+          </view>
+        </view>
+        <view class="cu-form-group">
+          <view class="grid col-4 grid-square flex-sub" style='margin-bottom:0;'>
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+              <image src='{{imgList[index]}}' mode='aspectFill'></image>
+              <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+                <text class="cuIcon-close"></text>
+              </view>
+            </view>
+            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+              <text class="cuIcon-cameraadd"></text>
+            </view>
+          </view>
+        </view>
+      </form>
+    </view>
+  </view>    
+  <view class='cu-tabbar-height'></view>
+</scroll-view>

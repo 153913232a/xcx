@@ -1,0 +1,30 @@
+.gif-wave{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;  
+  height: 100rpx;   
+}
+.scrollPage{
+  position: absolute;
+  bottom: 100rpx;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.tabbar{
+  position:fixed;
+  top: 0;
+  height: 100rpx;
+  left: 0;
+  right: 0;
+}
+.home-container{
+  position: absolute;
+  top: 128rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

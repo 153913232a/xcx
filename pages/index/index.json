@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "my": "/pages/my/my",
+    "home": "/pages/home/home",
+    "message": "/pages/message/message",
+    "publish": "/pages/publish/publish",
+    "similar": "/pages/similar/similar"
+  }
+}

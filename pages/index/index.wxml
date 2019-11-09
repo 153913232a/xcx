@@ -1,0 +1,43 @@
+<!-- <cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">ColorUI 空白模板</view>
+</cu-custom> -->
+<home wx:if="{{PageCur=='home'}}"></home>
+<similar wx:if="{{PageCur=='similar'}}"></similar>
+<publish wx:if="{{PageCur=='add'}}"></publish>
+<message wx:if="{{PageCur=='message'}}"></message>
+<my wx:if="{{PageCur=='my'}}"></my>
+<view class="cu-bar tabbar bg-white shadow" 
+  style='position:fixed;width:100%;bottom:0!important;z-index:1024'>
+  <view class="action" bindtap="NavChange" data-cur="home">
+    <view class="cu-item">
+      <text class="cuIcon-homefill lg {{PageCur=='home'?'text-green':'text-gray'}}"></text>
+    </view>
+    <view class="{{PageCur=='home'?'text-green':'text-gray'}}">首页
+    </view>
+  </view>
+  <view class="action text-gray" bindtap="NavChange" data-cur="similar">
+    <view class="cu-item">
+      <text class="cuIcon-goodsfill lg {{PageCur=='similar'?'text-green':'text-gray'}}"></text>
+    </view>
+    <view class="{{PageCur=='similar'?'text-green':'text-gray'}}">分类
+    </view>
+  </view>
+  
+  <view class="action text-gray add-action" bindtap="NavChange" data-cur="add">
+    <button class="cu-btn cuIcon-add bg-green shadow"></button>
+    发布
+  </view>
+  
+  <view class="action" bindtap="NavChange" data-cur="message">
+    <view class="cu-item">
+      <text class="cuIcon-communityfill lg {{PageCur=='message'?'text-green':'text-gray'}}"></text>
+    </view>
+    <view class="{{PageCur=='message'?'text-green':'text-gray'}}">消息</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="my">
+    <view class="cu-item">
+      <text class="cuIcon-profilefill lg {{PageCur=='my'?'text-green':'text-gray'}} "></text>
+    </view>
+    <view class="{{PageCur=='my'?'text-green':'text-gray'}}">我的</view>
+  </view>
+</view>
