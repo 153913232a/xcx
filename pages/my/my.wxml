@@ -4,7 +4,7 @@
     <view slot="content">我的</view>
   </cu-custom> -->
   <view class="UCenter-bg" style='height: 250rpx;'>
-    <view class="text-xl">个人中心
+    <view class="text-xl">个人中心1
       
     </view>
     <!-- <image src="/images/logo.png" class="png" mode="widthFix"></image>
