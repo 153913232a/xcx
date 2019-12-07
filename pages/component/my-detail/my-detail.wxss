@@ -1,0 +1,6 @@
+/* pages/component/my-detail/my-detail.wxss */
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

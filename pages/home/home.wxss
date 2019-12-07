@@ -15,11 +15,7 @@
   right: 0;
 }
 .tabbar{
-  position:fixed;
-  top: 0;
-  height: 100rpx;
-  left: 0;
-  right: 0;
+  margin-top: 20rpx;
 }
 .home-container{
   position: absolute;

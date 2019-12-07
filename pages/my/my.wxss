@@ -4,7 +4,6 @@
   height: 550rpx;
   display: flex;
   justify-content: center;
-  padding-top: 40rpx;
   overflow: hidden;
   position: relative;
   flex-direction: column;
@@ -43,4 +42,20 @@ map,.mapBox{
 map,.mapBox{
   width: 750rpx;
   height: 300rpx;
+}
+.fl{
+  position: absolute;
+  top: 225rpx;
+  height: 300rpx;
+  left: 30rpx;
+  right: 30rpx;
+  background: white;
+  z-index: 999;
+  border-radius: 20rpx;
+}
+.img {
+  position: absolute;
+  top: 170rpx;
+  left: 38%;
+  z-index: 1000;
 }

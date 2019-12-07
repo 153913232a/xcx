@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "my-detail": "/pages/component/my-detail/my-detail",
+    "modal": "/pages/component/modal/modal"
+  }
+}

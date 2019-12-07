@@ -11,6 +11,17 @@ Component({
     MainCur: 0,
     VerticalNavTop: 0,
     list: [],
+    listData: [{
+      type: "A",
+      data:[
+      {
+        name: "A1",
+        price: "30",
+        remark: "remark"
+      }
+    ]},
+      
+    ],
     load: true,
     loadModal: false
   },
@@ -28,6 +39,14 @@ Component({
       list[i] = {};
       list[i].name = String.fromCharCode(65 + i);
       list[i].id = i;
+      list[i].data = []
+      for(var j=0; j < 4; j++) {
+        var item = {};
+        item.name = list[i].name + j;
+        item.remark = "remark" + j;
+        item.price = "30";
+        list[i].data.push(item)
+      }
     }
     this.setData({
       list: list,
@@ -36,7 +55,7 @@ Component({
     this.setData({
       loadModal: false
     })
-   
+    console.log(this.data);
   },
   methods: {
     loadModal() {

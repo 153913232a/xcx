@@ -1,0 +1,30 @@
+<scroll-view scroll-y class="scrollPage">
+  <cu-custom bgColor="bg-gradual-blue" is-back="true">
+    <view slot="backText">返回</view>
+    <view slot="content">{{content ||''}}</view>
+  </cu-custom>
+ 
+  <scroll-view scroll-x class="bg-white nav text-center">
+    <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabs}}" wx:for-item="tab" wx:key bindtap="tabSelect" data-id="{{index}}">
+      {{tab.name}}
+    </view>
+  </scroll-view>
+  <slot name="body"></slot>
+
+  <!-- <view class="cu-list  menu-avatar sm-border">
+     <view class="cu-item" wx:for="{{cars}}" wx:for-item="car"
+      bindtap='toDetail'
+      data-target='{{car.id}}'
+      >
+      <view class="cu-avatar radius lg" style="background-image:url({{car.url}});"></view>
+      <view class="content">
+        <view class="text-pink">
+          <text class="text-cut">{{car.name}}</text>
+        </view>
+        <view class="text-gray">
+          <text class="text-cut">￥{{car.price}}/小时</text>
+        </view>
+      </view>
+    </view>
+  </view> -->
+</scroll-view>  

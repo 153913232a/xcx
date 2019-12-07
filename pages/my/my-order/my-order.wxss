@@ -1,0 +1,11 @@
+/* pages/my/my-order/my-order.wxss */
+.or {
+  width:60%;
+  margin:0 auto;
+  display: flex;
+  line-height: 40rpx;
+}
+.or .first{
+  text-align: right;
+  width: 200rpx;
+}

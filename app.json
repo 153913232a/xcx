@@ -5,7 +5,11 @@
     "pages/home/home",
     "pages/publish/publish",
     "pages/message/message",
-    "pages/similar/similar"
+    "pages/similar/similar",
+    "pages/component/home-detai/home-detail",
+    "pages/my/my-car/my-car",
+    "pages/my/my-reback/my-reback",
+    "pages/my/my-order/my-order"
   ],
   "window": {
     "backgroundTextStyle": "light",

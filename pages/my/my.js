@@ -1,68 +1,58 @@
+// const io = require('../../lib/weapp.socket.io.js');
+// const socket = io('ws://localhost:9093')
+// socket.emit('send', {title: '123'})
+// socket.on('recvMsg', function (data) {
+//   console.log(data)
+// })
 Component({
   options: {
-    addGlobalClass: true,
+    addGlobalClass: true
+  },
+  ready: function() {
+    console.log('ready')
+    // socket.on('recvMsg', function(data) {
+    //   console.log(data)
+    // })
   },
   data: {
-    elements: [{
-      title: '布局',
-      name: 'layout',
-      color: 'cyan',
-      icon: 'newsfill'
-    },
-    {
-      title: '背景',
-      name: 'background',
-      color: 'blue',
-      icon: 'colorlens'
-    },
-    {
-      title: '文本',
-      name: 'text',
-      color: 'purple',
-      icon: 'font'
-    },
-    {
-      title: '图标 ',
-      name: 'icon',
-      color: 'mauve',
-      icon: 'icon'
-    },
-    {
-      title: '按钮',
-      name: 'button',
-      color: 'pink',
-      icon: 'btn'
-    },
-    {
-      title: '标签',
-      name: 'tag',
-      color: 'brown',
-      icon: 'tagfill'
-    },
-    {
-      title: '头像',
-      name: 'avatar',
-      color: 'red',
-      icon: 'myfill'
-    },
-    {
-      title: '进度条',
-      name: 'progress',
-      color: 'orange',
-      icon: 'icloading'
-    },
-    {
-      title: '边框阴影',
-      name: 'shadow',
-      color: 'olive',
-      icon: 'copy'
-    },
-    {
-      title: '加载',
-      name: 'loading',
-      color: 'green',
-      icon: 'loading2'
-    },
-    ],
+    // tabs: {
+    //   "我的车辆": [],
+    //   "我的收藏": [],
+    //   "我的订单":[
+    //     {
+    //       id: 1,
+    //       name: "支出订单"
+    //     },
+    //     {
+    //       id: 2,
+    //       name: "收入订单"
+    //     }
+    //   ], 
+    //   "我的反馈": [
+    //     {
+    //       id: 1,
+    //       name: "我提出的反馈"
+    //     },
+    //     {
+    //     id: 2,
+    //     name: "我收到的反馈"
+    //   }]
+    // },
+    types:{
+      "我的车辆": "/pages/my/my-car/my-car",
+      "我的反馈": "/pages/my/my-reback/my-reback",
+      "我的订单": "/pages/my/my-order/my-order"
+    }
+    
+
+  },
+  methods: {
+    toMyDetail(e) {
+      console.log(e);
+      let type = e.target.dataset.content || e.currentTarget.dataset.content;
+      wx.navigateTo({
+        url: this.data.types[type]
+      })
+    }
   }
 })

@@ -5,10 +5,21 @@ bindscroll="scroll"
 enable-back-to-top="true"
 scroll-with-animation
  >
-   <cu-custom bgColor="bg-gradual-blue">
-     <view slot="backText">返回</view>
-     <view slot="content">首页</view>
-   </cu-custom>
+  
+    <!-- <cu-custom bgColor="bg-gradual-blue" isCustom="true"> -->
+     <view class="cu-bar bg-cyan search" style='height: 150rpx'>
+      <view class="search-form radius">
+        <text class="cuIcon-search"></text>
+        <input type="text" placeholder="搜索车辆" confirm-type="search"></input>
+      </view>
+      <view class="action">
+        <text>{{address.city}}</text>
+        <text class="cuIcon-triangledownfill"></text>
+      </view>
+    </view>
+   <!-- </cu-custom>  -->
+   
+
 
   
   <view class='nav-list home-container'>

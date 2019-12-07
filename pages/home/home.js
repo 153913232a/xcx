@@ -1,27 +1,32 @@
 const app = getApp();
 var amapFile = require('../../lib/amap-wx.js');
-Page({
+var KEY ='a69d326cc296c52931441a7f0d5e7b39';
+var myAmapFun = new amapFile.AMapWX({ key: KEY });
+Component({
+  options: {
+    addGlobalClass: true
+  },
   data: {
+    address: {},
     position: {},
     markers: [{
       iconPath: "icon-location.png",
       id: 0,
-      latitude: 29.8174,
+      latitude: 29.8161,
       longitude: 121.547,
       width: 40,
       height: 40
     }, {
         iconPath: "icon-location.png",
-        id: 2,
-        latitude: 29.8179,
+        id: 1,
+        latitude: 29.8189,
         longitude: 121.547,
         width: 40,
         height: 40
       }
     ],
     polyline: [{
-      points: [
-      ],
+      points: [],
       color: "#FF0000DD",
       width: 2,
       arrowLine:true,
@@ -45,84 +50,130 @@ Page({
   onShow: function () {
     console.log('123');
   },
-  regionchange(e) {
-    var that = this;
-    if (!this.data.position.latitude) {
-      wx.getLocation({
-        type: 'wgs84',
-        success(res) {
-          for (let key in res) {
-            app.globalData.userInfo[key] = res[key];
-          }
-          console.log(res);
-          that.setData({
-            'position': {
-              latitude: app.globalData.userInfo.latitude,
-              longitude: app.globalData.userInfo.longitude
+  methods: {
+    regionchange(e) {
+      var that = this;
+      if (!this.data.position.latitude) {
+        wx.getLocation({
+          type: 'wgs84',
+          success(res) {
+            for (let key in res) {
+              app.globalData.userInfo[key] = res[key];
             }
-          })
-        }
-      })
+            console.log(res);
+            that.setData({
+              'position': {
+                latitude: app.globalData.userInfo.latitude,
+                longitude: app.globalData.userInfo.longitude
+              }
+            })
+
+            console.log(that.data.position);
+            var location = that.data.position.longitude + ',' + that.data.position.latitude;
+
+            myAmapFun.getRegeo({
+              location: location,
+              success: function (data) {
+                app.globalData.userInfo.province = data[0].regeocodeData.addressComponent.province;
+                app.globalData.userInfo.city = data[0].regeocodeData.addressComponent.city;
+                app.globalData.userInfo.district = data[0].regeocodeData.addressComponent.district;
+                that.setData({
+                  address: {
+                    city: app.globalData.userInfo.city 
+                  }
+                })
+              },
+              fail: function (info) {
+                //失败回调
+                console.log(info)
+              }
+            })
+          }
+        })
+      }
+    },
+    markertap(e) {
       var that = this
-      var myAmapFun = new amapFile.AMapWX({ key: 'a69d326cc296c52931441a7f0d5e7b39' });
-      myAmapFun.getRegeo({
-        location: '121.579005,29.885258',
+      var originLg = this.data.position.longitude;
+      var originLa = this.data.position.latitude;
+      if (!originLa || !originLg) {
+        console.log("无法获取位置！");
+        return;
+      }
+      var origin = originLg + ',' + originLa;
+      var des = this.data.markers[e.markerId].longitude + ',' + this.data.markers[e.markerId].latitude;
+      console.log(this.data.position)
+      if (this.data.position.des &&
+        (this.data.position.des) !== des) {
+        that.setData({
+          polyline: [{
+            points: []
+          }]
+        });
+      }
+
+      if (that.data.polyline[0].points.length) {
+        wx.navigateTo({
+          url: "/pages/component/home-detai/home-detail?type=0",
+        })
+        return;
+      }
+
+      myAmapFun.getWalkingRoute({
+        origin: origin,
+        destination: des,
         success: function (data) {
-          console.log(data)
+          console.log(data);
+          var points = [];
+          if (data.paths && data.paths[0] && data.paths[0].steps) {
+            var steps = data.paths[0].steps;
+            for (var i = 0; i < steps.length; i++) {
+              var poLen = steps[i].polyline.split(';');
+              for (var j = 0; j < poLen.length; j++) {
+                points.push({
+                  longitude: parseFloat(poLen[j].split(',')[0]),
+                  latitude: parseFloat(poLen[j].split(',')[1])
+                })
+              }
+            }
+          }
+
+          that.setData({
+            polyline: [{
+              points: points,
+              color: "#0091ff",
+              width: 2
+            }],
+            position: 　{
+              latitude: app.globalData.userInfo.latitude,
+              longitude: app.globalData.userInfo.longitude,
+              des: des
+            }
+          });
+
+          console.log(that.data);
+      
+          
+          
+          // if (data.paths[0] && data.paths[0].distance) {
+          //   that.setData({
+          //     distance: data.paths[0].distance + '米'
+          //   });
+          // }
+          // if (data.taxi_cost) {
+          //   that.setData({
+          //     cost: '打车约' + parseInt(data.taxi_cost) + '元'
+          //   });
+          // }
+
         },
         fail: function (info) {
-          //失败回调
           console.log(info)
         }
       })
+    },
+    controltap(e) {
+      console.log(e.controlId)
     }
-  },
-  markertap(e) {
-    var that = this
-    var myAmapFun = new amapFile.AMapWX({ key: 'a69d326cc296c52931441a7f0d5e7b39' });
-    myAmapFun.getDrivingRoute({
-      origin: '121.55027,29.87386',
-      destination: '121.55127,29.87386',
-      success: function (data) {
-        var points = [];
-        if (data.paths && data.paths[0] && data.paths[0].steps) {
-          var steps = data.paths[0].steps;
-          for (var i = 0; i < steps.length; i++) {
-            var poLen = steps[i].polyline.split(';');
-            for (var j = 0; j < poLen.length; j++) {
-              points.push({
-                longitude: parseFloat(poLen[j].split(',')[0]),
-                latitude: parseFloat(poLen[j].split(',')[1])
-              })
-            }
-          }
-        }
-        that.setData({
-          polyline: [{
-            points: points,
-            color: "#0091ff",
-            width: 2
-          }]
-        });
-        if (data.paths[0] && data.paths[0].distance) {
-          that.setData({
-            distance: data.paths[0].distance + '米'
-          });
-        }
-        if (data.taxi_cost) {
-          that.setData({
-            cost: '打车约' + parseInt(data.taxi_cost) + '元'
-          });
-        }
-
-      },
-      fail: function (info) {
-
-      }
-    })
-    console.log(e.markerId)
-  },
-  controltap(e) {
-    console.log(e.controlId)
   }
 })

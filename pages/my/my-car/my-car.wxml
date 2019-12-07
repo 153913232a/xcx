@@ -1,0 +1,23 @@
+<!--pages/my/my-car/my-car.wxml-->
+<scroll-view scroll-y class="scrollPage">
+  <my-detail content="{{content}}">
+    <view slot="body">
+      <view class="cu-list  menu-avatar sm-border">
+        <view class="cu-item" wx:for="{{cars}}" wx:for-item="car"
+          bindtap='toDetail'
+          data-target='{{car.id}}'
+          >
+          <view class="cu-avatar radius lg" style="background-image:url({{car.url}});"></view>
+          <view class="content">
+            <view class="text-pink">
+              <text class="text-cut">{{car.name}}</text>
+            </view>
+            <view class="text-gray">
+              <text class="text-cut">￥{{car.price}}/小时</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </my-detail>
+</scroll-view>

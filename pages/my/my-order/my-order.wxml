@@ -1,0 +1,43 @@
+<!--pages/my/my-order/my-order.wxml-->
+<scroll-view scroll-y class="scrollPage">
+  <my-detail content="{{content}}" tabs="{{tabs}}">
+     <view slot="body">
+      <view class="cu-list  menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+        <view class="cu-item  arrow" style="padding: 20rpx 30rpx;" wx:for="{{orders}}" wx:for-item="order"
+          bindtap='toDetail'
+          data-target="DialogModal1"
+          data-id='{{order.id}}'
+          >
+          <view class="cu-avatar radius lg" style="background-image:url({{order.url}});"></view>
+          <view class="content" style='padding-left: 20rpx;'>
+            <view>
+              <view class="text-cut text-blue" style="margin-right: 60rpx;">{{order.name}}</view>
+              <view class="text-cut {{tabcur==='1'? 'text-green': 'text-red'}}" >
+              {{tabcur==='1' ? '+' : '-'}}{{order.price}}</view>
+            </view>
+            <view class="text-gray">
+              <text class="text-cut">今天{{order.time}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </my-detail>
+
+  <modal id="modalId" title="订单详情">
+    <view slot="body" class="text-grey" style='text: align: center;margin: 20rpx 0;'>
+      <view class="or">
+        <view class='first'>车名： </view><view>{{orders[curIndex].name}}</view>
+      </view>
+      <view class="or">
+        <view class='first'>支付人：</view> <view>{{orders[curIndex].payU}}</view>
+      </view>
+      <view class="or">
+        <view class='first'>使用时间：</view><view>{{orders[curIndex].useTime}}小时</view>
+      </view>
+      <view class="or">
+        <view class='first'>收入：</view><view>{{orders[curIndex].price}}元</view>
+      </view>
+    </view>
+  </modal>
+</scroll-view>
