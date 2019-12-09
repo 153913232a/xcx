@@ -58,13 +58,13 @@ Component({
           type: 'wgs84',
           success(res) {
             for (let key in res) {
-              app.globalData.userInfo[key] = res[key];
+              app.globalData.position[key] = res[key];
             }
             console.log(res);
             that.setData({
               'position': {
-                latitude: app.globalData.userInfo.latitude,
-                longitude: app.globalData.userInfo.longitude
+                latitude: app.globalData.position.latitude,
+                longitude: app.globalData.position.longitude
               }
             })
 
@@ -74,12 +74,12 @@ Component({
             myAmapFun.getRegeo({
               location: location,
               success: function (data) {
-                app.globalData.userInfo.province = data[0].regeocodeData.addressComponent.province;
-                app.globalData.userInfo.city = data[0].regeocodeData.addressComponent.city;
-                app.globalData.userInfo.district = data[0].regeocodeData.addressComponent.district;
+                app.globalData.position.province = data[0].regeocodeData.addressComponent.province;
+                app.globalData.position.city = data[0].regeocodeData.addressComponent.city;
+                app.globalData.position.district = data[0].regeocodeData.addressComponent.district;
                 that.setData({
                   address: {
-                    city: app.globalData.userInfo.city 
+                    city: app.globalData.position.city 
                   }
                 })
               },
@@ -145,8 +145,8 @@ Component({
               width: 2
             }],
             position: 　{
-              latitude: app.globalData.userInfo.latitude,
-              longitude: app.globalData.userInfo.longitude,
+              latitude: app.globalData.position.latitude,
+              longitude: app.globalData.position.longitude,
               des: des
             }
           });

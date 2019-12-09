@@ -53,9 +53,17 @@ map,.mapBox{
   z-index: 999;
   border-radius: 20rpx;
 }
-.img {
-  position: absolute;
-  top: 170rpx;
-  left: 38%;
-  z-index: 1000;
+
+.userinfo{
+  position:absolute;
+  top:165rpx;
+  left:42%;
+  z-index:1000;
+}
+.userinfo-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-size: cover;
+  background-color: white;
 }

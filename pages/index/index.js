@@ -1,8 +1,11 @@
-
+const app = getApp()
 Page({
   data: {
     PageCur: 'home'
   },
+  onLoad() {
+    console.log(app)
+  }, 
   NavChange(e) {
     // debugger
     this.setData({
