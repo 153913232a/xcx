@@ -17,10 +17,11 @@ Component({
   },
   ready: function() {
     console.log(app.globalData)
+    console.log(this.data.userInfo)
     //初始化
-    if(JSON.stringify(userInfo) !=='{}') {
+    if (this.data.userInfo.avatarUrl==='./user-unlogin.png') {
       this.setData({
-        'userInfo': userInfo
+        'userInfo': app.globalData.userInfo
       })
     }
     // socket.on('recvMsg', function(data) {
@@ -95,8 +96,6 @@ Component({
    async formatSendData (data) {
       // 获取openid
       var openData=await this.getOpenId()
-      console.log(openData)
-      userInfo = data
       data.longitude = position.longitude
       data.latitude = position.latitude
       return {
@@ -111,7 +110,7 @@ Component({
       }
     },
     async getUserInfo (e) {
-      if (JSON.stringify(userInfo) === '{}') {
+      if (JSON.stringify(app.globalData.userInfo) === '{}') {
         let that = this;
         // console.log(e)
         // 获取用户信息
@@ -121,9 +120,12 @@ Component({
             if (res.authSetting['scope.userInfo']) {
               wx.getUserInfo({
                 async success(res) {
+                  console.log(res)
                   that.setData({
                     userInfo: res.userInfo
                   })
+                  app.globalData.userInfo = res.userInfo
+                  console.log('app',app.globalData)
                   var sendUser = await that.formatSendData(res.userInfo)
                   console.log(sendUser);
                   wx.request({

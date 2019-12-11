@@ -8,7 +8,8 @@ Page({
   data: {
     type: 0,
     imgList: [],
-    pickerStatus: ['车型A', '车型B', '车型C', '车型D'],
+    pickerStatus: ['闲置中', '使用中', '维修中'],
+    status: '0',
     region: [
     ]
   },
@@ -40,9 +41,9 @@ Page({
 
     this.setData({
       region: [
-        app.globalData.userInfo.province,
-        app.globalData.userInfo.city,
-        app.globalData.userInfo.district
+        app.globalData.position.province,
+        app.globalData.position.city,
+        app.globalData.position.district
       ]
     })
     console.log(this.data)

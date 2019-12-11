@@ -19,9 +19,9 @@ Component({
   ready: function () {
     this.setData({
       region: [
-        app.globalData.userInfo.province,
-        app.globalData.userInfo.city,
-        app.globalData.userInfo.district
+        app.globalData.position.province,
+        app.globalData.position.city,
+        app.globalData.position.district
       ]
     })
     console.log(this.data)

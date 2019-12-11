@@ -73,12 +73,12 @@ scroll-with-animation
             <text class="cuIcon-locationfill text-orange"></text>
           </view>
           <view class="cu-form-group flex-center">
-            <view class="title">价格</view>
+            <view class="title">租金</view>
             <input value="20" name="price">元/小时</input>
           </view>
           <view class="cu-form-group ">
             <view class="title">是否新车</view>
-            <switch name="isNew" class="cyan radius sm"></switch>
+            <switch name="isNew" class="cyan radius sm" checked></switch>
           </view>
           <view class="cu-form-group">
             <view class="title">状态</view>

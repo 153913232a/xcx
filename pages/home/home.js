@@ -8,7 +8,9 @@ Component({
   },
   data: {
     address: {},
+    modalName: '',
     position: {},
+    showLocation: true,
     markers: [{
       iconPath: "icon-location.png",
       id: 0,
@@ -43,12 +45,6 @@ Component({
     //   },
     //   clickable: true
     // }]
-  },
-  onLoad:function() {
-    console.log('123');
-  },
-  onShow: function () {
-    console.log('123');
   },
   methods: {
     regionchange(e) {
@@ -103,21 +99,22 @@ Component({
       var origin = originLg + ',' + originLa;
       var des = this.data.markers[e.markerId].longitude + ',' + this.data.markers[e.markerId].latitude;
       console.log(this.data.position)
-      if (this.data.position.des &&
-        (this.data.position.des) !== des) {
-        that.setData({
-          polyline: [{
-            points: []
-          }]
-        });
-      }
+      this.showModal()
+      // if (this.data.position.des &&
+      //   (this.data.position.des) !== des) {
+      //   that.setData({
+      //     polyline: [{
+      //       points: []
+      //     }]
+      //   });
+      // }
 
-      if (that.data.polyline[0].points.length) {
-        wx.navigateTo({
-          url: "/pages/component/home-detai/home-detail?type=0",
-        })
-        return;
-      }
+      // if (that.data.polyline[0].points.length) {
+      //   wx.navigateTo({
+      //     url: "/pages/component/home-detai/home-detail?type=0",
+      //   })
+      //   return;
+      // }
 
       myAmapFun.getWalkingRoute({
         origin: origin,
@@ -174,6 +171,21 @@ Component({
     },
     controltap(e) {
       console.log(e.controlId)
+    },
+    showModal(e) {
+      this.setData({
+        modalName: 'bottomModal'
+      })
+    },
+    hideModal(e) {
+      this.setData({
+        modalName: null
+      })
+    },
+    toHomeDetail(){
+      wx.navigateTo({
+        url: "/pages/component/home-detai/home-detail?type=0",
+      })
     }
   }
 })
