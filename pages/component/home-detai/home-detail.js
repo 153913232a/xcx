@@ -6,12 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    car:{},
     type: 0,
-    imgList: [],
     pickerStatus: ['闲置中', '使用中', '维修中'],
-    status: '0',
-    region: [
-    ]
+    imgList: []
+    // imgList: [],
+    // pickerStatus: ['闲置中', '使用中', '维修中'],
+    // status: '0',
+    // region: [
+    // ]
   },
   reback(e) {
     this.selectComponent("#modalId").showModal(e);
@@ -26,10 +29,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     if(options.type!=undefined) {
       this.setData({
-        type: options.type
+        type: options.type,
+        car: JSON.parse(options.car)
+      })
+      this.setData({
+        imgList: this.data.car.photo_addr.split(',')
       })
     }
   },
@@ -92,6 +98,30 @@ Page({
   },
   formSubmit(e) {
     console.log(e);
+    let data = e.detail.value;
+    let sendData = {
+      isNew: data.isNew,
+      addrDetail: data.detail,
+      status: data.status,
+      price: data.price,
+      id: this.data.car.id,
+      imgList: this.data.imgList.join(',')
+    }
+    wx.request({
+      url: 'http://localhost:9093/car/updateCar',
+      data: {
+        sendData
+      },
+      success:function(e) {
+        if(e.data.code==='0') {
+          wx.showModal({
+            title: '提示',
+            content: '修改成功！',
+          })
+        }
+      }
+    })
+  
   },
   ChooseImage() {
     // console.log(app.globalData.userInfo)
@@ -120,10 +150,10 @@ Page({
   },
   DelImg(e) {
     wx.showModal({
-      title: '召唤师',
-      content: '确定要删除这段回忆吗？',
-      cancelText: '再看看',
-      confirmText: '再见',
+      title: '提示',
+      content: '确定删除吗',
+      cancelText: '取消',
+      confirmText: '确认',
       success: res => {
         if (res.confirm) {
           this.data.imgList.splice(e.currentTarget.dataset.index, 1);

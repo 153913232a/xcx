@@ -1,16 +1,43 @@
 const app = getApp()
 Page({
   data: {
-    PageCur: 'home'
+    PageCur: 'home',
+    unReadNum: null
   },
   onLoad() {
-    console.log(app)
   }, 
+  getUnReadNum() {
+    var that = this
+    if (!JSON.parse(wx.getStorageSync('chatId'))) {  // 说明没有
+      return;
+    }
+    let chatIds = JSON.parse(wx.getStorageSync('chatId')) || []
+    wx.request({
+      url: 'http://localhost:9093/message/getMessages',
+      data: {
+        chatIds: chatIds,
+        userId: app.globalData.userInfo.openId
+      },
+      success: function (res) {
+        let data = res.data.data;
+        let allUnReadNum = 0;
+        data.forEach((item) => {
+          allUnReadNum += item.unread_num;
+        })
+        that.setData({
+          unReadNum: allUnReadNum
+        })
+      }
+    })
+  },
   NavChange(e) {
     // debugger
     this.setData({
       PageCur: e.currentTarget.dataset.cur
     })
+    // if(this.data.PageCur==='message' && JSON.stringify(app.globalData.userInfo!=null)) {
+    //   this.getUnReadNum()
+    // }
     // let page = getCurrentPages().pop();
     // if (page == undefined || page == null) {
     //   return;
@@ -29,4 +56,12 @@ Page({
       path: '/pages/index/index'
     }
   },
+  changeUnReadfNum(e) {
+    // this.setData({
+    //   unReadNum: e.detail
+    // })
+  },
+  changeNum() {
+    this.getUnReadNum()
+  }
 })

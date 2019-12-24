@@ -53,7 +53,7 @@ scroll-with-animation
         <view class="cu-item shadow" style="margin-top: 10rpx;">
           <view class="cu-form-group flex-center">
             <view class="title">车主</view>
-            <input value="zsx" name="userName"></input>
+            <input wx:disabled='true' style='text-align: right' value="zsx" name="userName" value="{{car.user_name}}"></input>
             <view class='flex-center' wx-if="{{type==='0'}}">
               <text class="cuIcon-message text-gray" style='font-size: 40rpx;' bindtap='message'></text>
               <!-- <text style="font-size: 30rpx;margin-left: 10rpx;">私聊</text> -->
@@ -69,22 +69,22 @@ scroll-with-animation
           </view>
           <view class="cu-form-group">
             <view class="title">详细地址地址</view>
-            <input placeholder="输入详细地址" name='detail' value='盛世新都'></input>
+            <input style='text-align: right' placeholder="输入详细地址" name='detail' value='{{car.addr_detail}}'></input>
             <text class="cuIcon-locationfill text-orange"></text>
           </view>
           <view class="cu-form-group flex-center">
             <view class="title">租金</view>
-            <input value="20" name="price">元/小时</input>
+            <input style='text-align: right' name="price" value="{{car.price}}"></input>
           </view>
           <view class="cu-form-group ">
             <view class="title">是否新车</view>
-            <switch name="isNew" class="cyan radius sm" checked></switch>
+            <switch name="isNew" class="cyan radius sm" checked="{{car.is_new==1}}"></switch>
           </view>
           <view class="cu-form-group">
             <view class="title">状态</view>
-            <picker name="status" bindchange="PickerChange" value="{{status}}" range="{{pickerStatus}}">
+            <picker name="status" bindchange="PickerChange" value="{{car.status}}" range="{{pickerStatus}}">
               <view class="picker">
-                {{status?pickerStatus[status]:'请选择状态'}}
+                {{car.status?pickerStatus[car.status]:'请选择状态'}}
               </view>
             </picker>
           </view> 

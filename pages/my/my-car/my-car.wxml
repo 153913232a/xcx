@@ -3,11 +3,14 @@
   <my-detail content="{{content}}">
     <view slot="body">
       <view class="cu-list  menu-avatar sm-border">
-        <view class="cu-item" wx:for="{{cars}}" wx:for-item="car"
+        <view class="cu-item" wx:if="{{!cars.length}}">
+          <view class="cu-load bg-grey over"></view>
+        </view>  
+        <view class="cu-item" wx:for="{{cars}}" wx:for-id="index" wx:for-item="car"
           bindtap='toDetail'
-          data-target='{{car.id}}'
+          data-target='{{car}}'
           >
-          <view class="cu-avatar radius lg" style="background-image:url({{car.url}});"></view>
+          <view class="cu-avatar radius lg" style="background-image:url({{firstPhoto[index]}});"></view>
           <view class="content">
             <view class="text-pink">
               <text class="text-cut">{{car.name}}</text>

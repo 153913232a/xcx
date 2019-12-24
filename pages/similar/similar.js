@@ -4,6 +4,7 @@ Component({
     addGlobalClass: true
   },
   data: {
+    userInfo: {},
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
@@ -26,32 +27,53 @@ Component({
     loadModal: false
   },
   created: function() {
-    
   },
   ready: function () {
     
     this.setData({
       loadModal: true
     });
-
-    let list = [{}];
-    for (let i = 0; i < 26; i++) {
-      list[i] = {};
-      list[i].name = String.fromCharCode(65 + i);
-      list[i].id = i;
-      list[i].data = []
-      for(var j=0; j < 4; j++) {
-        var item = {};
-        item.name = list[i].name + j;
-        item.remark = "remark" + j;
-        item.price = "30";
-        list[i].data.push(item)
-      }
+    if (JSON.stringify(app.globalData.userInfo)==='{}') {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录！',
+      })
+      return
     }
     this.setData({
-      list: list,
-      listCur: list[0]
+      userInfo: app.globalData.userInfo
     })
+    var that = this
+    wx.request({
+      url: 'http://localhost:9093/similar/getSimilar',
+      success: function (res) {
+        let list = res.data.data.carTypes
+        that.setData({
+          list: list,
+          listCur: list[0]
+        })
+        console.log('list', list)
+      }
+    })
+
+    // let list = [{}];
+    // for (let i = 0; i < 26; i++) {
+    //   list[i] = {};
+    //   list[i].name = String.fromCharCode(65 + i);
+    //   list[i].id = i;
+    //   list[i].data = []
+    //   for(var j=0; j < 4; j++) {
+    //     var item = {};
+    //     item.name = list[i].name + j;
+    //     item.remark = "remark" + j;
+    //     item.price = "30";
+    //     list[i].data.push(item)
+    //   }
+    // }
+    // this.setData({
+    //   list: list,
+    //   listCur: list[0]
+    // })
     this.setData({
       loadModal: false
     })
@@ -67,6 +89,12 @@ Component({
           loadModal: false
         })
       }, 2000)
+    },
+    getPic(str) {
+      console.log('str', str)
+      if(str) {
+        return str.split(',')[0].join('')
+      }
     },
     onLoad: function (options) {
       console.log('similar onloading')

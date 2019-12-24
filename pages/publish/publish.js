@@ -1,5 +1,6 @@
 // pages/publish/publish.js
 const app = getApp()
+const isAuth = require('../../utils/util.js').isAuth
 Component({
 
   /**
@@ -11,12 +12,14 @@ Component({
 
   data: {
     imgList: [],
-    picker: ['车型A', '车型B', '车型C','车型D'],
+    picker: [],
     pickerStatus: ['闲置中', '使用中', '维护中'],
     region: [
     ]
   },
   ready: function () {
+    isAuth();
+
     this.setData({
       region: [
         app.globalData.position.province,
@@ -24,11 +27,69 @@ Component({
         app.globalData.position.district
       ]
     })
-    console.log(this.data)
+    if(!app.globalData.carTypes.length) {
+      var that = this
+      wx.request({
+        url: 'http://localhost:9093/publish/getCarTypes',
+        success: function (res) {
+          
+          app.globalData.carTypes = res.data.data;
+          let picker = []
+          app.globalData.carTypes.forEach((type) => {
+            picker.push(type.name);
+          })
+          that.setData({
+            picker: picker
+          })
+        }
+      })
+    } else {
+      let picker = []
+      app.globalData.carTypes.forEach((type) => {
+        picker.push(type.name);
+      })
+      this.setData({
+        picker: picker
+      })
+    }
+    
   },
   methods: {
+    formatData(data) {
+      return {
+        addr_detail: data.detail,
+        isNew: data.isNew? '1': '0',
+        price: data.price,
+        status: data.status,
+        imgList: this.data.imgList.join(','),
+        name: data.name,
+        carTypeId: data.type,
+        latitude: app.globalData.position.latitude,
+        logitude: app.globalData.position.longitude,
+        userId: app.globalData.userInfo.openId
+      }
+    },
     formSubmit(e) {
-      console.log(e);
+      if(!isAuth()) {
+        return;
+      }
+      let sendData = this.formatData(e.detail.value)
+      console.log(sendData)
+      wx.request({
+        url: 'http://localhost:9093/publish/insertCar',
+        data:{
+          sendData
+        },
+        success: (res) => {
+          console.log(res)
+          if(res.data.code==='0') {
+            wx.showModal({
+              title: '提示',
+              content: '新增成功！',
+            })
+          }
+        }
+      })
     },
     ChooseImage() {
       console.log(app.globalData.userInfo)

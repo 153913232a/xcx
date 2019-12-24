@@ -4,8 +4,8 @@
 <home wx:if="{{PageCur=='home'}}"></home>
 <similar wx:if="{{PageCur=='similar'}}"></similar>
 <publish wx:if="{{PageCur=='add'}}"></publish>
-<message wx:if="{{PageCur=='message'}}"></message>
-<my wx:if="{{PageCur=='my'}}"></my>
+<message wx:if="{{PageCur=='message'}}" bind:changeUnReadfNum="changeUnReadfNum"></message>
+<my wx:if="{{PageCur=='my'}}" bind:changeNum="changeNum"></my>
 <view class="cu-bar tabbar bg-white shadow" 
   style='position:fixed;width:100%;bottom:0!important;z-index:1024'>
   <view class="action" bindtap="NavChange" data-cur="home">
@@ -30,9 +30,13 @@
   
   <view class="action" bindtap="NavChange" data-cur="message">
     <view class="cu-item">
-      <text class="cuIcon-communityfill lg {{PageCur=='message'?'text-green':'text-gray'}}"></text>
+      <text class="cuIcon-communityfill lg {{PageCur=='message'?'text-green':'text-gray'}}">
+      </text>
+      <view class="cu-tag badge" style="top:-7rpx;right:32rpx;" wx:if="{{unReadNum}}">{{unReadNum}}</view>
     </view>
-    <view class="{{PageCur=='message'?'text-green':'text-gray'}}">消息</view>
+    <view class="{{PageCur=='message'?'text-green':'text-gray'}}">
+      消息 
+    </view>
   </view>
   <view class="action" bindtap="NavChange" data-cur="my">
     <view class="cu-item">

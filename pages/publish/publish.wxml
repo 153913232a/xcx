@@ -11,7 +11,7 @@
       <form bindsubmit="formSubmit">
         <view class="cu-form-group margin-top">
           <view class="title">名称</view>
-          <input placeholder="请输入名称" name="name"></input>
+          <input placeholder="请输入名称" name="name" style="text-align: right"></input>
         </view>
         <view class="cu-form-group">
           <view class="title">地址</view>
@@ -23,12 +23,12 @@
         </view>
         <view class="cu-form-group">
           <view class="title">详细地址地址</view>
-          <input placeholder="输入框带个图标" name='detail' value='盛世新都'></input>
+          <input style="text-align: right" placeholder="输入框带个图标" name='detail' value='盛世新都'></input>
           <text class="cuIcon-locationfill text-orange"></text>
         </view>
         <view class="cu-form-group">
           <view class="title">租金</view>
-          <input name="price" placeholder="请输入价格"></input>
+          <input style="text-align: right" name="price" placeholder="请输入价格"></input>
         </view>
         <view class="cu-form-group">
           <view class="title">是否新车</view>
@@ -73,7 +73,7 @@
         </view>
         <view class='flex-center'>
             <button class='cu-btn block bg-blue margin-tb-sm lg' style="width:35%;"formType="submit">
-              <text class="cuIcon-check"></text>确认修改
+              <text class="cuIcon-check"></text>确认添加
             </button>
         </view>
       </form>

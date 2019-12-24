@@ -10,6 +10,7 @@ let position = app.globalData.position
 const OPENID_URL ='https://api.weixin.qq.com/sns/jscode2session'
 const APP_ID = 'wxffd37f2dbbb5c6f5';
 const SECRET = '35e2e982df2ea2bfb50bfa58ecfeb118';
+const isAuth = require('../../utils/util.js').isAuth
 
 Component({
   options: {
@@ -19,7 +20,7 @@ Component({
     console.log(app.globalData)
     console.log(this.data.userInfo)
     //初始化
-    if (this.data.userInfo.avatarUrl==='./user-unlogin.png') {
+    if (this.data.userInfo.avatarUrl === './user-unlogin.png' && app.globalData.userInfo.openId) {
       this.setData({
         'userInfo': app.globalData.userInfo
       })
@@ -87,7 +88,10 @@ Component({
      
     },
     toMyDetail(e) {
-      console.log(e);
+      if(!isAuth()) {
+        return
+      }
+
       let type = e.target.dataset.content || e.currentTarget.dataset.content;
       wx.navigateTo({
         url: this.data.types[type]
@@ -125,15 +129,17 @@ Component({
                     userInfo: res.userInfo
                   })
                   app.globalData.userInfo = res.userInfo
-                  console.log('app',app.globalData)
                   var sendUser = await that.formatSendData(res.userInfo)
-                  console.log(sendUser);
+                  app.globalData.userInfo.openId = sendUser.id
                   wx.request({
                     url: 'http://localhost:9093/users/updateUser',
                     data: {
                       sendUser: sendUser 
+                    },
+                    success: function (res) {
+                      that.triggerEvent('changeNum')
                     }
-                  })
+                  })  
                 },
                 fail(res) {
                   console.log("获取用户信息失败", res)
